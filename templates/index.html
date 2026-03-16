@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinless Instances</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221em%22 font-size=%2280%22>📌</text></svg>">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #121212;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+        }
+
+        header p {
+            color: #b0b0b0;
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #e60023;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            /* border-bottom: 1px solid #555; */
+        }
+
+        .instance-card {
+            background: #1e1e1e;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            transition: background 0.2s;
+        }
+
+        .instance-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .instance-card:hover {
+            background: #252525;
+        }
+
+        .instance-header {
+            margin-bottom: 0.5rem;
+        }
+
+        .instance-url {
+            color: #e60023;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            word-break: break-all;
+        }
+
+        .instance-url:hover {
+            text-decoration: underline;
+        }
+
+
+        .instance-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: #b0b0b0;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .meta-label {
+            color: #888;
+        }
+
+        .region-tag, .operator-tag {
+            display: inline-block;
+            background: #2a2a2a;
+            color: #e0e0e0;
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-right: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .operator-tag {
+            color: #e60023;
+            text-decoration: none;
+        }
+
+        .operator-tag:hover {
+            text-decoration: underline;
+        }
+
+        .empty {
+            text-align: center;
+            color: #b0b0b0;
+            padding: 1.5rem;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 0.5rem;
+            /* border-top: 1px solid #555; */
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        footer a {
+            color: #e60023;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Pinless Instances 📌</h1>
+        </header>
+
+        {{if .Clearnet}}
+        <div class="section">
+            <h2 class="section-title">🌐 Clearnet</h2>
+            {{if .Clearnet}}
+                {{range .Clearnet}}
+                <div class="instance-card">
+                    <div class="instance-header">
+                        <a href="{{.URL}}" class="instance-url" target="_blank">{{.URL}}</a>
+                    </div>
+                    <div class="instance-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Regions:</span>
+                            {{if .Regions}}
+                                {{range .Regions}}<span class="region-tag">{{.}}</span>{{end}}
+                            {{else}}
+                                <span class="region-tag">Unknown</span>
+                            {{end}}
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Operator:</span>
+                            {{if .Operators}}
+                                {{range .Operators}}<a href="{{.}}" class="operator-tag" target="_blank">{{.}}</a>{{end}}
+                            {{else}}
+                                <span class="region-tag">Unknown</span>
+                            {{end}}
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+            {{else}}
+                <div class="empty">No clearnet instances available</div>
+            {{end}}
+        </div>
+        {{end}}
+
+        {{if .Onion}}
+        <div class="section">
+            <h2 class="section-title">🧅 Tor (Onion)</h2>
+            {{range .Onion}}
+            <div class="instance-card">
+                <div class="instance-header">
+                    <a href="{{.URL}}" class="instance-url" target="_blank">{{.URL}}</a>
+                </div>
+                <div class="instance-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Regions:</span>
+                        {{if .Regions}}
+                            {{range .Regions}}<span class="region-tag">{{.}}</span>{{end}}
+                        {{else}}
+                            <span class="region-tag">Unknown</span>
+                        {{end}}
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Operator:</span>
+                        {{if .Operators}}
+                            {{range .Operators}}<a href="{{.}}" class="operator-tag" target="_blank">{{.}}</a>{{end}}
+                        {{else}}
+                            <span class="region-tag">Unknown</span>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+            {{end}}
+        </div>
+        {{end}}
+
+        {{if .I2P}}
+        <div class="section">
+            <h2 class="section-title">🕳️ I2P</h2>
+            {{range .I2P}}
+            <div class="instance-card">
+                <div class="instance-header">
+                    <a href="{{.URL}}" class="instance-url" target="_blank">{{.URL}}</a>
+                </div>
+                <div class="instance-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Regions:</span>
+                        {{if .Regions}}
+                            {{range .Regions}}<span class="region-tag">{{.}}</span>{{end}}
+                        {{else}}
+                            <span class="region-tag">Unknown</span>
+                        {{end}}
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Operator:</span>
+                        {{if .Operators}}
+                            {{range .Operators}}<a href="{{.}}" class="operator-tag" target="_blank">{{.}}</a>{{end}}
+                        {{else}}
+                            <span class="region-tag">Unknown</span>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+            {{end}}
+        </div>
+        {{end}}
+
+        {{if not .Clearnet}}{{if not .Onion}}{{if not .I2P}}
+        <div class="empty">No instances available</div>
+        {{end}}{{end}}{{end}}
+
+        <footer>
+            <p><a href="https://github.com/bunk-im/pinless-instances" target="_blank">Source Code</a></p>
+        </footer>
+    </div>
+</body>
+
+</html>
