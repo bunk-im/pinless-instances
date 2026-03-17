@@ -226,14 +226,6 @@
                             <span class="region-tag">Unknown</span>
                         {{end}}
                     </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Cloudflare:</span>
-                        {{if .Cloudflare}}
-                            <span class="cloudflare-tag">✔️</span>
-                        {{else}}
-                            <span class="region-tag">❌</span>
-                        {{end}}
-                    </div>
                 </div>
             </div>
             {{end}}
@@ -255,14 +247,6 @@
                             {{range .Regions}}<span class="region-tag">{{.}}</span>{{end}}
                         {{else}}
                             <span class="region-tag">Unknown</span>
-                        {{end}}
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Cloudflare:</span>
-                        {{if .Cloudflare}}
-                            <span class="cloudflare-tag">✔️</span>
-                        {{else}}
-                            <span class="region-tag">❌</span>
                         {{end}}
                     </div>
                 </div>
