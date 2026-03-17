@@ -15,9 +15,10 @@ import (
 const instancesURL = "https://raw.githubusercontent.com/bunk-im/pinless/main/instances.json"
 
 type Instance struct {
-	URL       string   `json:"url"`
-	Regions   []string `json:"regions"`
-	Operators []string `json:"operators"`
+	URL        string   `json:"url"`
+	Regions    []string `json:"regions"`
+	Operators  []string `json:"operators"`
+	Cloudflare bool     `json:"cloudflare"`
 }
 
 type InstancesData struct {
